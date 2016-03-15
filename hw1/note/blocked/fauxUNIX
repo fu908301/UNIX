@@ -1,0 +1,8 @@
+alias ig='echo >/dev/null'
+alias no='echo command not found;ig'
+alias l8r='echo command not implemented in homework 1;ig'
+alias cp=no; alias mv=no; alias rm=no; alias mkdir=no; alias rmdir=no
+alias ftp=l8r; alias rlogin=l8r
+alias ls="ls -dlS * . ..;ig"
+PS1="$ "
+cd ~/HW1/usr/toukmond

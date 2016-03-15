@@ -1,0 +1,204 @@
+$ sh
+$ source ~/dunnet
+$ dunnet
+Dead end
+You are at a dead end of a dirt road.  The road goes to the east.
+In the distance you can see that it will eventually fork off.  The
+trees here are very tall royal palms, and they are spaced equidistant
+from each other.
+You see: shovel.o
+> e
+E/W dirt road
+You are on the continuation of a dirt road.  There are more trees on
+both sides of you.  The road continues to the east and west.
+You see: boulder.o
+> w
+Dead end
+You see: shovel.o
+> e
+E/W dirt road
+You see: boulder.o
+> x boulder.o
+It is just a boulder. It cannot be moved.
+> get
+There is nothing here that you can get.
+> l
+E/W dirt road
+You are on the continuation of a dirt road.  There are more trees on
+both sides of you.  The road continues to the east and west.
+You see: boulder.o
+> x .trees.o
+They are palm trees with a bountiful supply of coconuts in them.
+> x .tree.o
+They are palm trees with a bountiful supply of coconuts in them.
+> x .coconuts.o
+I see nothing special about that.
+> x shovel.o
+cat: shovel.o: No such file or directory
+> i
+Your inventory contains: lamp.o
+> x lamp.o
+cat: lamp.o: No such file or directory
+> drop
+You drop all your items.
+> i
+Your inventory contains: 
+> l
+E/W dirt road
+You are on the continuation of a dirt road.  There are more trees on
+both sides of you.  The road continues to the east and west.
+You see: boulder.o  lamp.o
+> x lamp.o
+The lamp is hand-crafted by Geppetto.
+> get
+You pick up everything that you can.
+> get
+There is nothing here that you can get.
+> i
+Your inventory contains: lamp.o
+> w
+Dead end
+You see: shovel.o
+> dig
+You have nothing with which to dig.
+> get
+You pick up everything that you can.
+> i
+Your inventory contains: lamp.o  shovel.o
+> dig
+Digging here reveals nothing.
+> insert
+There is nothing to insert anything into.
+> type
+There is nothing on which you could type.
+> w
+You cannot go that way.
+> e
+E/W dirt road
+You see: boulder.o
+> e
+Fork
+You are at a fork of two passages, one to the northeast, and one to the
+southeast.  The ground here seems very soft. You can also go back west.
+> ne
+NE/SW road
+You are on a northeast/southwest road.
+> ne
+Building front
+You are at the end of the road.  There is a building in front of you
+to the northeast, and the road leads back to the southwest.
+> ne
+You do not have a key that can open this door.
+> sw
+NE/SW road
+> sw
+Fork
+> se
+SE/NW road
+You are on a southeast/northwest road.
+You see: food.o
+> get
+You pick up everything that you can.
+> se
+Bear hangout
+You are standing at the end of a road.  A passage leads back to the
+northwest.
+You see: bear.o
+> drop
+You drop all your items.
+The bear takes the food and runs away with it. He left something behind.
+> l
+Bear hangout
+You are standing at the end of a road.  A passage leads back to the
+northwest.
+You see: key.o  lamp.o  shovel.o
+> get
+You pick up everything that you can.
+> nw
+SE/NW road
+> nw
+Fork
+> ne
+NE/SW road
+> ne
+Building front
+> i
+Your inventory contains: key.o  lamp.o  shovel.o
+> drop
+You drop all your items.
+> ne
+You do not have a key that can open this door.
+> get
+You pick up everything that you can.
+> ne
+Old building hallway
+You are in the hallway of an old building.  There are rooms to the east
+and west, and doors leading out to the north and south.
+> i
+Your inventory contains: lamp.o  shovel.o
+> w
+Computer room
+You are in a computer room.  It seems like most of the equipment has
+been removed.  There is a VAX 11/780 in front of you, however, with
+one of the cabinets wide open.  A sign on the front of the machine
+says: This VAX is named 'pokey'.  To type on the console, use the
+'type' command.  The exit is to the east.
+The panel lights are steady and motionless.
+> type
+You type on the keyboard, but your characters do not even echo.
+> insert
+You do not have the CPU card.
+> e
+Old building hallway
+> s
+Building front
+> sw
+NE/SW road
+> sw
+Fork
+> l
+Fork
+You are at a fork of two passages, one to the northeast, and one to the
+southeast.  The ground here seems very soft. You can also go back west.
+> dig
+I think you found something.
+> l
+Fork
+You are at a fork of two passages, one to the northeast, and one to the
+southeast.  The ground here seems very soft. You can also go back west.
+You see: card.o
+> x card.o
+The CPU board has a VAX chip on it.  It seems to have
+2 Megabytes of RAM onboard.
+> get
+You pick up everything that you can.
+> ne
+NE/SW road
+> ne
+Building front
+> ne
+Old building hallway
+> w
+Computer room
+> i
+Your inventory contains: card.o  lamp.o  shovel.o
+> drop
+You drop all your items.
+> insert
+You do not have the CPU card.
+> get
+You pick up everything that you can.
+> insert
+As you put the CPU board in the computer, it immediately springs to life.
+The lights start flashing, and the fans seem to startup.
+> i
+Your inventory contains: lamp.o  shovel.o
+> l
+Computer room
+You are in a computer room.  It seems like most of the equipment has
+been removed.  There is a VAX 11/780 in front of you, however, with
+one of the cabinets wide open.  A sign on the front of the machine
+says: This VAX is named 'pokey'.  To type on the console, use the
+'type' command.  The exit is to the east.
+The panel lights are flashing in a seemingly organized pattern.
+> quit

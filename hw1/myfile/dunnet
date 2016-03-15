@@ -1,0 +1,2 @@
+#!/bin/sh
+alias dunnet='PS1=">";clear'

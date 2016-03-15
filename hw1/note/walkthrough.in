@@ -1,0 +1,77 @@
+echo '$ sh'
+echo '$ source ~/dunnet'
+echo '$ dunnet';dunnet
+echo "> e";e
+echo "> w";w
+echo "> e";e
+echo "> x boulder.o";x boulder.o
+echo "> get";get
+echo "> l";l
+echo "> x .trees.o";x .trees.o
+echo "> x .tree.o";x .tree.o
+echo "> x .coconuts.o";x .coconuts.o
+echo "> x shovel.o";x shovel.o
+echo "> i";i
+echo "> x lamp.o";x lamp.o
+echo "> drop";drop
+echo "> i";i
+echo "> l";l
+echo "> x lamp.o";x lamp.o
+echo "> get";get
+echo "> get";get
+echo "> i";i
+echo "> w";w
+echo "> dig";dig
+echo "> get";get
+echo "> i";i
+echo "> dig";dig
+echo "> insert";insert
+echo "> type";type
+echo "> w";w
+echo "> e";e
+echo "> e";e
+echo "> ne";ne
+echo "> ne";ne
+echo "> ne";ne
+echo "> sw";sw
+echo "> sw";sw
+echo "> se";se
+echo "> get";get
+echo "> se";se
+echo "> drop";drop
+echo "> l";l
+echo "> get";get
+echo "> nw";nw
+echo "> nw";nw
+echo "> ne";ne
+echo "> ne";ne
+echo "> i";i
+echo "> drop";drop
+echo "> ne";ne
+echo "> get";get
+echo "> ne";ne
+echo "> i";i
+echo "> w";w
+echo "> type";type
+echo "> insert";insert
+echo "> e";e
+echo "> s";s
+echo "> sw";sw
+echo "> sw";sw
+echo "> l";l
+echo "> dig";dig
+echo "> l";l
+echo "> x card.o";x card.o
+echo "> get";get
+echo "> ne";ne
+echo "> ne";ne
+echo "> ne";ne
+echo "> w";w
+echo "> i";i
+echo "> drop";drop
+echo "> insert";insert
+echo "> get";get
+echo "> insert";insert
+echo "> i";i
+echo "> l";l
+echo "> quit";quit

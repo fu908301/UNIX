@@ -1,0 +1,20 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+int main()
+{
+  fstream cat;
+  fstream cd;
+  fstream echo;
+  fstream _exit;
+  fstream ftp;
+  fstream gzip;
+  fstream ls;
+  fstream pwd;
+  fstream rlogin;
+  file.open("test",ios::out);
+  for(int i = 1;i <= 2306;i++)
+    file<<i<<" ";
+  file.close();
+  return 0;
+}
