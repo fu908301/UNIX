@@ -1,2 +1,13 @@
-#!/bin/sh
-alias dunnet='PS1=">";clear'
+#!/bin/bash
+alias dunnet='PS1="> ";clear;rm -r HW1;tar -xvf B023040018.tar;cd ~/HW1/rooms/dead-end;cat description;echo -n "You see: ";ls *.o'
+alias x='cat'
+alias l='cat description;echo -n "You see ";ls *.o'
+alias e='cd .e;cat description;echo -n "You see: ";ls *.o'
+alias w='cd .w;cat description;echo -n "You see: ";ls *.o'
+alias s='cd .s;cat description;echo -n "You see: ";ls *.o'
+alias n='echo "You cannot go this way."'
+alias nw='cd .nw;cat description;echo -n "You see: ";ls *.o'
+alias sw='cd .sw;cat description;echo -n "You see: ";ls *.o'
+alias ne='cd .ne;cat description;echo -n "You see: ";ls *.o'
+alias se='cd .se;cat description;echo -n "You see: ";ls *.o'
+
