@@ -1,13 +1,30 @@
-#!/bin/bash
-alias dunnet='PS1="> ";clear;rm -r HW1;tar -xvf B023040018.tar;cd ~/HW1/rooms/dead-end;cat description;echo -n "You see: ";ls *.o'
-alias x='cat'
-alias l='cat description;echo -n "You see ";ls *.o'
-alias e='cd .e;cat description;echo -n "You see: ";ls *.o'
-alias w='cd .w;cat description;echo -n "You see: ";ls *.o'
-alias s='cd .s;cat description;echo -n "You see: ";ls *.o'
-alias n='echo "You cannot go this way."'
-alias nw='cd .nw;cat description;echo -n "You see: ";ls *.o'
-alias sw='cd .sw;cat description;echo -n "You see: ";ls *.o'
-alias ne='cd .ne;cat description;echo -n "You see: ";ls *.o'
-alias se='cd .se;cat description;echo -n "You see: ";ls *.o'
+ls ~/_>&/dev/null||ln -s /dev/null ~/_
+alias TRUE='ls>~/_'
+alias ig='cd `pwd -P`;echo >& ~/_'
 
+alias see='ls .visited >&/dev/null&&head -1 description||(cat description&&touch .visited)||TRUE&&(echo -n "You see: "&&(ls *.o 2>/dev/null||echo ""))'
+alias l='rm .visited;see;ig'
+alias x=cat
+alias quit='exit 1'
+alias i='cd ~/HW1/usr/toukmond;echo -n "Your inventory contains: ";ls *.o 2>/dev/null||echo "";cd -;ig'
+
+alias e='cd .e 2>/dev/null&&(see)||echo "You cannot go this way.";ig'
+alias w='cd .w 2>/dev/null&&(see)||echo "You cannot go this way.";ig'
+alias s='cd .s 2>/dev/null&&(see)||echo "You cannot go this way.";ig'
+alias nw='cd .nw 2>/dev/null&&(see)||echo "You cannot go this way.";ig'
+alias sw='cd .sw 2>/dev/null&&(see)||echo "You cannot go this way.";ig'
+alias se='cd .se 2>/dev/null&&(see)||echo "You cannot go this way.";ig'
+alias n='ls .n >&/dev/null&&echo "You do not have the key"||echo "You cannot go this way.";ig'
+
+
+
+
+
+
+
+
+
+
+
+
+alias dunnet='clear;PS1="> ";cd;chmod u+x HW1/rooms/old-building-hallway;rm -rf HW1;tar xvf B023040018.tar >& ~/_;cd HW1/.blocked;gcc -o login.x login.c; cd ../rooms/dead-end;see'
