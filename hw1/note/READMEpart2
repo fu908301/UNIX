@@ -1,0 +1,404 @@
+Two general comments:
+1. You cannot use pipes (|) in this assignment.
+
+2. When designing a complex boolean expression, you sometimes need to use
+   parentheses. For example: a or (b and c) will skip b and c if a is true, but
+   a or b and c will not skip c when a is true.
+   When using parentheses in UNIX, however, you need to be a little careful,
+   because the parentheses create a new shell.
+   -Confused?
+    What this means is that changes made inside the parentheses don't last
+    outside of the parentheses (except for commands with side effects).
+    -Confused? Here is an example: 
+     % pwd;cd ..;pwd;(cd ..;pwd);pwd
+     /home/Me
+     /home
+     /
+     /home
+     %
+
+     You see? First I ran "pwd" and got the output "/home/Me"
+     Next I ran "cd .." and then "pwd". I therefore got the output "/home"
+     Next I ran "(" which created a new shell environment
+     Next I ran cd .. and then pwd. I therefore got the output "/"
+     Next I ran ")" which exited the new shell environment
+     Next I ran "pwd". I got the output "/home". This indicates that the change
+     of directory that was done inside of the parentheses was not retained when
+     the parentheses were ended.
+
+     But side effects do get retained. In the above example, the retained side
+     effect is the screen output. When the ")" executed, the new shell exited,
+     but it didn't try to remove the "/" that it had printed already.
+
+     Another side effect that will be retained is any change that you make to
+     the file system. So, if you create a file, it will still be there; if you
+     delete a file, it will still be gone.
+
+
+And now here is a line-by-line description of your dunnet script:
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 1: Type the following line exactly:
+
+        ls ~/_>&/dev/null||ln -s /dev/null ~/_
+
+        The purpose of the above line is to create a link to the null file from
+	your home directory (but only if it hasn't already been made).
+	Having done so, we can hereafter kill the output with fewer keystrokes.
+	That is, compare the following 2 commands (which are equivalent in
+	effect, but different in keystrokes needed to type):
+          % ls file_that_might_not_exist 2> /dev/null
+          % ls file_that_might_not_exist 2> ~/_
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 2: Type the following line exactly:
+
+        alias TRUE='ls>~/_'
+
+        The purpose of the above line is to create a command that you know will
+	evalute to true, but which will have no other effects.
+	- Why does it evaluate to true? Because it is impossible to fail to be
+	  able to list the contents of your directory (in normal usage).
+	- Why does it have no other effects? Because all output is killed. (Now
+	  you might notice that error messages aren't redirected -- but we just
+	  said that this ls command was impossible to fail, so, indeed, there
+	  is no output.)
+	- But why would we ever want to use this alias? Because of command
+	  coordination. Consider a situation where you want to execute com2
+	  only if com1 fails, but you want to execute com3 regardless of what
+	  com1 and com2 did. Then you can use:
+	  % com1 || com2 || TRUE && com3
+
+          You see? We know that a OR b OR true is always true, regardless of
+	  the values of a and b. Therefore, we know that com3 will always
+	  execute, regardless of the values of com1 and com2.
+
+          Now, the observant student will have noticed that there is an
+	  alternative solution to the above example:
+
+          % com1 || com2 ; com3
+
+          Yes, it is true that this has the same effect, in this example. But
+          there can be a differencein other examples (such as the one that
+	  occurs on line 5, described below).
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 3: Type the following line exactly:
+	  
+	alias ig='cd `pwd -P`;echo >& ~/_'
+
+        The purpose of the above line is to do two things:
+
+           1. cd `pwd -P`
+	   
+	   This creates an absolute path for the current directory. (That is
+	   why we use the -P flag).
+	   
+	   But what's the point? Well, I don't want to confuse you. That is why
+	   I am giving you the code instead of making you design it. But, here
+	   is a simple answer:
+	   Yes, by all appearances, cd `pwd -P` should have no effect (because
+	   you are just changing the directory to what it already was). But,
+	   for unimportant reasons, there is an effect when you use links for
+	   changing directories. (For example, if I was in the dead-end and I
+	   typed "cd .e".) The effect shows up after you do this many times
+	   (eg. cd .e;cd .w;cd .e;cd .w;cd .e;cd .w;cd .e;cd .w;cd .e;cd .w).
+	   The effect is that it will eventually stop letting you change
+	   directories (for unimportant reasons); the solution is to pwd -D to
+	   stop the links from piling up.
+	   Whatever. Who cares. The point is: I already gave you the code.
+
+           2. echo >& ~/_
+
+           The second purpose of the "ig" alias is the one that gives the alias
+	   its name: "echo >& ~/_" will cause all arguments to be ignored.
+	   What do I mean? Well in this homework (unlike in the actual dunnet
+	   game), we usually dont have multiword commands; the exception is the
+	   "x" command (e.g. "x shovel.o" is a multiword command).
+	   Now, since the original dunnet had multiword commands, I think that
+	   it is good for our version to not crash when you type them; instead
+	   we just ignore them.
+	   So "insert card in computer" is treated the same as just "insert"
+	   because the arguments get ignored.
+
+           But, how does "echo >& ~/_" cause arguments to be ignored? Well lets
+	   considethat we typed the following:
+	   % alias echo1='echo 1:'
+	   % alias echo2='echo 2:;ig'
+	   % echo1 arg1 arg2
+	   1: arg1 arg2
+	   % echo1 arg1 arg2
+	   2:
+	   %
+
+           You see? "echo1 arg1 arg2" = "echo 1: arg1 arg2" -> "1: arg1 arg2"
+	   But:"echo2 arg1 arg2" = "echo 2:; echo arg1 arg2>&/dev/null" -> "2:"
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 4: This line is intentionally left blank.
+	   
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 5. 
+Call this alias "see". It performs many steps to show what you see in the room:
+   1. Display the name of the room, if it has already been visited.
+   2. Describe the room, if it hasn't been visited and
+      then mark it as visited.
+   3. Display the items present.
+   4. Use the TRUE alias from line 2 to ensure that the "see" command always
+      indicates success when it is run. (This will be important later, when the
+      other aliases you create will use the "see" command with the expectation
+      that it always succeeds.)
+
+Furthermore, when you implement this alias, you may not use the ";" symbol.
+
+So, how to do it? Well you should use a hidden file in the current directory
+to indicate that the room has been visited. If this file has not been created,
+then the room has not been visited (so describe the room and create the hidden
+file). But, if the file is present, then the dunnet game shortens the way it
+describes the room to just its name.
+
+Q1: Where is the description of the room?
+A1: It is the file that is named "description" that you have already placed
+    into the directory for this room. (If you didn't make that tar file, then
+    you aren't read to create these aliases yet.)
+
+Q2: Where is the name of the room?
+A2: It is the first line of the "description" file.
+
+Q3: How to display just the first line of a file?
+A3: Lecture 1 taught us the command for this. Review your notes.
+
+Q4: How to know if the room has been visited?
+A4: You look for the hidden file.
+    Q4b: Yes, but how to look for the hidden file?
+    A4b: Use "ls"
+         Q4c: But that will display the file name. I don't want that.
+	 A4c: True, you don't want that. So send the output to /dev/null and
+	      just make use of the success or failure to control the command
+	      coordination operations.
+
+Q5: What do I name the hidden file?
+A5: I don't care. But it must be hidden.
+
+Q6: How do I create the hidden file?
+A6: Redirect the output of an echo.
+
+Q7: How to always display the objects in the room?
+A7: You will need to use parentheses, because I don't let you use ";" here.
+    Q7b: Yes, but how?
+    A7b: I think you can work out the boolean expression for this.
+
+Q8: How to actually make the objects display?
+A8: This is three commands:
+    The first checks for whether you actually do see any objects. In keeping
+    with the original dunnet game, there are really three types of objects:
+     1. Objects that you can see, examine, and get (eg., shovel.o or card.o)
+     2. Objects that you can only see and examine (eg., boulder.o or bear.o)
+     3. Objects that you can only examine (eg., .trees.o or .bins.o)
+        Note: the point that I am making here is that this third category is
+	not meant to be displayed. 
+
+    Q:So, how to check for objects? A:You look for files ending in ".o", but
+    you don't want to display them, you just want to test, for use with command
+    coordination.
+    
+    The second command prints "You see: ", but only if objects were found.
+    (This is the way the original dunnet works; rooms without objects don't
+    display the "You see: " message.)
+
+    The third command lists the objects.
+
+Q9: But my "You see: " is on a different line than the objects.
+A9: You will need a flag on your echo to keep it from going to the net line.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 6: Type the following line, but with the blank (____________) filled in:
+
+     	alias l='____________;see;ig'
+
+        The blank is a command whose effect is to remove the hidden file that
+        indicates that the room has been visited before. You see how it works?
+	The "l" command stands for "look." In the original game, revisited
+	rooms don't redisplay their descriptions unless you type "l" to look
+	again. By removing the hidden file and then executing see, we are
+	causing UNIX to do exactlywhat it would do the first time you visited
+	the room.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 7: Type the following line exactly:
+
+        alias x=cat
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 8: Type the following line exactly:
+
+ 	alias quit='exit 1'
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 9: This alias is for the "i" command (which stands for "inventory").
+
+        This is 6 commands, which are separated by 4 ";" and one "||"
+
+        Command 1: Goes to the ~/HW1/usr/toukmond directory
+	Command 2: Displays "Your inventory contains: ",without adding a \n
+	Command 3: List the objects in your directory
+        Command 4: If you have no objects, then command 3 would not have listed
+	           anything -- and that means the \n won't have been printed.
+		   It is therefore the task of command 4 to advance the display
+		   to the next line, but only in the case that command 3 had
+		   failed.
+        Command 5: Changes the directory back to what it was previously.
+	           Consult lecture one if you don't remember the correct
+		   argument to do this.
+		   Note: the same effect could have been achieved by putting
+		   parentheses around commands 1-4, but that is not the method
+		   you are being asked to use here.
+        Command 6: This command is "ig". In fact, all of the remaining aliases
+	           except for the last two ("type" and "dunnet") will end with
+		   ";ig". I therefore won't kee[ mentioning it for each one.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 10: This line is intentionally left blank.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 11: This line defines the alias for "e"
+         It is implemented as three commands (four if you count the ig at the
+	 end, which I hereafter assume without gurther mention).
+
+        command 1: Change your directory to .e
+	command 2: Run "see", but only if command 1 was successful
+	command 3: Display an error message about not being able to move in
+	           that direction, but only if command 1 had failed. (Recall
+		   that command 2 cannot fail, because line 5 ended with TRUE.)
+		   
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Lines 12-16: These are just like Line 11, except for the other directions, but
+             not for "n" or "ne"; the aliases for those will be described on
+	     Lines 17 and 18, below...
+	     
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 17: This is the alias for "n". It is actually not possible to move north
+         until later in dunnet: There is only one room (the hallway) with an
+	 exit to the north, and that exit is a door which you cannot unlock.
+	 So your implementation of the n command does not involve trying to
+	 change the directory. Instead, it is just a question of which error
+	 message to display: the one that says that you cannot go that way, or
+	 the one that says that you don't have the key.
+	 And, how to decide on the proper error message? It depends on whether
+	 there is a hidden file name .n in your current directory. (If you will
+	 recall, your tarfile contains such a file in the hallway's directory.)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 18: This is the alias for "ne". It has four possible outcomes:
+         1. You move to the north east
+         2. You move to the north east and destroy the key from your inventory
+	 3. You display an error message that you cannot move in that direction
+	 4. You display an error message that you don't have the key
+
+         Note that outcomes 3 and 4 are very similar; in both cases an attempt
+	 to "cd .ne" will fail: in one case, because there's no such directory,
+	 in the other case, because the directory does not give you permision
+	 to enter it. (Recall that your tarfile had this directory initially
+	 set to not have permision. The way you get permission is by picking up
+	 the key; this is implement in line 20, below).
+
+         So, how to determine which error message to give (assuming that you do
+	 need to give an error message)? Well you can distinguish the building
+	 front from all other rooms by looking for some distingushing feature
+	 in its location. Unfortunately, we do not have any unique files in
+	 this directory. What I mean is: it is not like line 17, where we just
+	 had to look for the .n file since no other rooms would have it.
+	 We could look for .ne/.n but that won't work because the door is
+	 locked; if you can't go to the north-east then you can't look into its
+	 directory for the .n file.  So, instead, you will have to look for
+	 something to the southwest (i.e.,  .sw/.sw/___)
+
+         The next question is how to distinguish outcomes 1 and 2. But, if you
+	 were able to distinguish outcomes 3 and 4 then you should be able to
+	 do the same thing here.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 19: This line is intentionally left blank.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 20: This is the alias for "get"
+         Here, there are two special considerations:
+	 1.If you pick up the key, you have to give yourself permission to the
+	   old-building-hallway. Hint: use a+x with your chmod, because u+x has
+	   some unexpected behavior.
+         2.Not every visible object can be picked up. (i.e., not the bear or
+	   the boulder). So you want files that: 1) don't start with ".", 2) do
+	   end in ".o", and 3) don't match to "bear.o" or "bolder.o".
+	   Q:How to get just the right ones? A:Use a very special file wildcard
+	     patern. Hint: list all of the objects that can be picked up and
+	     find a way to distinguish them from "bear.o" and "boulder.o".
+	     Note, you must use just one pattern, or else command coordination
+	     won't work. (For example: "ls key.o lamp.o||echo not present" will
+	     print "not present" if either object was not present, which is not
+	     what you want. Hence, you have to use just one pattern. And just
+	     to clarify, you don't use "ls" to pick up objects, that was just
+	     an example.)
+         So now, how to do it? Well its two parts -- and these two parts are
+	 separated by a ";".
+	 Part 1. See if the key is present. If so, give yourself permisions
+	         to move northeast from the building front.
+         Part 2. Try to move the portable objects into your inventory (i.e.,
+	         the "toukmond" directory). If you succeed in picking up
+		 anything, then display "You pick up everything you can."
+		 If you don't succeed, then display "There is nothing here that
+                 you can get."
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 21: This line is intentionally left blank.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 22: This is the alias for "drop"
+         Here, there are two special considerations:
+	 1.If you drop the key, you have to remove permission to the
+	   old-building-hallway. Hint: use a-x with your chmod, because u-x has
+	   some unexpected behavior.
+         2.If you drop the food in front of the bear, then both the bear and
+	   food disapear (i.e., they are removed), but the key appears (i.e.,
+	   it is moved from the .blocked directory to the current directory.)
+	   
+         Also, there are 3 possible display messages:
+            "You drop all your items."
+            "You have nothing to drop."
+            "The bear takes the food and runs away with it. He left something
+	     behind."
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 23: This line is intentionally left blank.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 24: This is the alias for "dig".  I will post its desription soon.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 25: This line is intentionally left blank.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 26: This is the alias for "insert".  I will post its desription soon.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 27: This line is intentionally left blank.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 28: This is the alias for "type".  I will post its desription soon.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 29: This line is intentionally left blank.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 30: This is the alias for "dunnet". Type it exactly as follows:
+
+         alias dunnet='clear;PS1="> ";cd;chmod u+x HW1/rooms/old-building-hallway;rm -rf HW1;tar xvf HW1.tar >& ~/_;cd HW1/.blocked;gcc -o login.x login.c; cd ../rooms/dead-end;see'
+
+         When I post the descriptions of lines 24, 26, and 28, then I will also
+	 post a longer explanation of what line 30 is doing. In particular, I
+	 will explain about the "HW1/.blocked/login.c" file. If, by the way,
+	 your version of UNIX doesn't have gcc, its OK. You can just remove the
+	 gcc command from line 30. (I'll explain about that in my next post.)
+	 Also: don't run the dunnet alias if you have not first created the
+	 HW1.tar file, becaus the alias will erase the HW1 directory and then
+	 attempt to rebuild it fresh, from your tarfile.
+	 
