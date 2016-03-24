@@ -15,7 +15,7 @@ alias nw='cd .nw >&/dev/null&&(see)||echo "You cannot go this way.";ig'
 alias sw='cd .sw >&/dev/null&&(see)||echo "You cannot go this way.";ig'
 alias se='cd .se >&/dev/null&&(see)||echo "You cannot go this way.";ig'
 alias n='ls .n >&/dev/null&&echo "You do not have the key"||echo "You cannot go this way.";ig'
-alias ne='ls .ne>&/dev/null||echo "You cannot go this way."ls .ne>&/dev/null&&cd.ne&&(ls .s>&/dev/null&&rm ~/HW1/usr/toukmond/key.o)||echo "You donnot have the key."'
+alias ne='ls .ne>&/dev/null&&(cd .ne&&(ls .s>&/dev/null&&rm ~/HW1/usr/toukmond/key.o)||echo "You donnot have the key.")||echo "You cannot go this way.";cd .ne>&/dev/null'
 
 alias get='ls key.o>&/dev/null&&(cd ~/HW1/rooms/building-front;chmod a+x .ne);mv *[^r].o ~/HW1/usr/toukmond>&/dev/null&&echo "You pick up everything you can."||echo "There is nothing you can get.";ig'
 
