@@ -6,7 +6,7 @@ alias see='ls .visited >&/dev/null&&head -1 description||(cat description&&touch
 alias l='rm .visited;see;ig'
 alias x=cat
 alias quit='exit 1'
-alias i='cd ~/HW1/usr/toukmond;echo -n "Your inventory contains: ";ls *.o 2>/dev/null||echo "";cd -;ig'
+alias i='cd ~/HW1/usr/toukmond;echo -n "Your inventory contains: ";ls *.o 2>/dev/null||echo "";cd - >&/dev/null;ig'
 
 alias e='cd .e >&/dev/null&&(see)||echo "You cannot go this way.";ig'
 alias w='cd .w >&/dev/null&&(see)||echo "You cannot go this way.";ig'
