@@ -15,13 +15,13 @@ alias nw='cd .nw >&/dev/null&&(see)||echo "You cannot go this way.";ig'
 alias sw='cd .sw >&/dev/null&&(see)||echo "You cannot go this way.";ig'
 alias se='cd .se >&/dev/null&&(see)||echo "You cannot go this way.";ig'
 alias n='ls .n >&/dev/null&&echo "You do not have the key"||echo "You cannot go this way.";ig'
-alias ne='ls .ne>&/dev/null&&(cd .ne&&(ls .s>&/dev/null&&rm ~/HW1/usr/toukmond/key.o)||echo "You donnot have the key.")||echo "You cannot go this way.";cd .ne>&/dev/null'
+alias ne='ls .ne>&/dev/null&&(cd .ne>&/dev/null&&(ls .s>&/dev/null&&rm ~/HW1/usr/toukmond/key.o)||echo "You donnot have the key.")||echo "You cannot go this way.";cd .ne>&/dev/null&&(see)'
 
 alias get='ls key.o>&/dev/null&&(cd ~/HW1/rooms/building-front;chmod a+x .ne);mv *[^r].o ~/HW1/usr/toukmond>&/dev/null&&echo "You pick up everything you can."||echo "There is nothing you can get.";ig'
 
 alias drop='mv ~/HW1/usr/toukmond/*.o .>&/dev/null&&echo "You drop all your items."||echo "You have nothing to drop.";ls key.o>&/dev/null&&(cd ~/HW1/rooms/building-front;chmod a-x .ne);ls food.o bear.o>&/dev/null&&(rm food.o bear.o >& /dev/null;mv ~/HW1/.blocked/key.o .);ig'
 
-alias dig='ls ~/HW1/usr/toukmond/shovel.o >&/dev/null&&(cd .w>&/dev/null&&(ls boulder.o>&/dev/null&&(ls ~/HW1/usr/toukmond/shovel.o>&/dev/null&&(mv ~/HW1/usr/toukmond/shovel.o ~/HW1/rooms/fork;echo "You digged somthing out")||echo "You digged nothing.")||echo "You digged nothing.")||echo "You digged nothing.")||echo "You cannot dig without a shovel.";ig'
+alias dig='ls ~/HW1/usr/toukmond/shovel.o >&/dev/null&&(cd .w>&/dev/null&&(ls boulder.o>&/dev/null&&(ls ~/HW1/usr/toukmond/shovel.o>&/dev/null&&(mv ~/HW1/.blocked/key.o ~/HW1/rooms/fork;echo "You digged somthing out")||echo "You digged nothing.")||echo "You digged nothing.")||echo "You digged nothing.")||echo "You cannot dig without a shovel.";ig'
 
 
 
