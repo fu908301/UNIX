@@ -1,0 +1,30 @@
+ls ~/_>&/dev/null||ln -s /dev/null ~/_
+alias TRUE='ls>~/_'
+alias ig='cd `pwd -P`;echo >& ~/_'
+
+alias see='ls .visited >&/dev/null&&head -1 description||(cat description&&touch .visited)||TRUE&&(echo -n "You see: "&&(ls *.o 2>/dev/null||echo ""))'
+alias l='rm .visited;see;ig'
+alias x=cat
+alias quit='exit 1'
+alias i='cd ~/HW1/usr/toukmond;echo -n "Your inventory contains: ";ls *.o 2>/dev/null||echo "";cd -;ig'
+
+alias e='cd .e >&/dev/null&&(see)||echo "You cannot go this way.";ig'
+alias w='cd .w >&/dev/null&&(see)||echo "You cannot go this way.";ig'
+alias s='cd .s >&/dev/null&&(see)||echo "You cannot go this way.";ig'
+alias nw='cd .nw >&/dev/null&&(see)||echo "You cannot go this way.";ig'
+alias sw='cd .sw >&/dev/null&&(see)||echo "You cannot go this way.";ig'
+alias se='cd .se >&/dev/null&&(see)||echo "You cannot go this way.";ig'
+alias n='ls .n >&/dev/null&&echo "You do not have the key"||echo "You cannot go this way.";ig'
+alias ne='ls .ne>&/dev/null||echo "You cannot go this way."ls .ne>&/dev/null&&cd.ne&&(ls .s>&/dev/null&&rm ~/HW1/usr/toukmond/key.o)||echo "You donnot have the key."'
+
+alias get='ls key.o>&/dev/null&&(cd ~/HW1/rooms/building-front;chmod a+x .ne);mv *[^r].o ~/HW1/usr/toukmond>&/dev/null&&echo "You pick up everything you can."||echo "There is nothing you can get.";ig'
+
+alias drop='mv ~/HW1/usr/toukmond/*.o .>&/dev/null&&echo "You drop all your items."||echo "You have nothing to drop.";ls key.o>&/dev/null&&(cd ~/HW1/rooms/building-front;chmod a-x .ne);ls food.o bear.o>&/dev/null&&(rm food.o bear.o >& /dev/null;mv ~/HW1/.blocked/key.o .);ig'
+
+alias dig='ls ~/HW1/usr/toukmond/shovel.o >&/dev/null&&(cd .w>&/dev/null&&(ls boulder.o>&/dev/null&&(ls ~/HW1/usr/toukmond/shovel.o>&/dev/null&&(mv ~/HW1/usr/toukmond/shovel.o ~/HW1/rooms/fork;echo "You digged somthing out")||echo "You digged nothing.")||echo "You digged nothing.")||echo "You digged nothing.")||echo "You cannot dig without a shovel.";ig'
+
+
+
+
+
+alias dunnet='clear;PS1="> ";cd;chmod u+x HW1/rooms/old-building-hallway;rm -rf HW1;tar xvf B023040018.tar >& ~/_;cd HW1/.blocked;gcc -o login.x login.c; cd ../rooms/dead-end;see'
