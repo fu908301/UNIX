@@ -15,16 +15,16 @@ alias nw='cd .nw >&/dev/null&&(see)||echo "You cannot go this way.";ig'
 alias sw='cd .sw >&/dev/null&&(see)||echo "You cannot go this way.";ig'
 alias se='cd .se >&/dev/null&&(see)||echo "You cannot go this way.";ig'
 alias n='ls .n >&/dev/null&&echo "You do not have the key"||echo "You cannot go this way.";ig'
-alias ne='ls .ne>&/dev/null&&(cd .ne>&/dev/null&&(ls .s>&/dev/null&&rm ~/HW1/usr/toukmond/key.o)||echo "You donnot have the key.")||echo "You cannot go this way.";cd .ne>&/dev/null&&(see)'
+alias ne='ls .ne>&/dev/null||echo "You cannot go this way.";ls .ne >&/dev/null&&(cd .ne>&/dev/null||echo "You do not have the key.";ls .s>&/dev/null&&rm ~/HW1/usr/toukmond/key.o);cd .ne>&/dev/null&&(see);ig'
 
 alias get='ls key.o>&/dev/null&&(cd ~/HW1/rooms/building-front;chmod a+x .ne);mv *[^r].o ~/HW1/usr/toukmond>&/dev/null&&echo "You pick up everything you can."||echo "There is nothing you can get.";ig'
 
-alias drop='mv ~/HW1/usr/toukmond/*.o .>&/dev/null&&echo "You drop all your items."||echo "You have nothing to drop.";ls key.o>&/dev/null&&(cd ~/HW1/rooms/building-front;chmod a-x .ne);ls food.o bear.o>&/dev/null&&(rm food.o bear.o >& /dev/null;mv ~/HW1/.blocked/key.o .);ig'
+alias drop='mv ~/HW1/usr/toukmond/*.o .>&/dev/null&&echo "You drop all your items."||echo "You have nothing to drop.";ls key.o>&/dev/null&&(cd ~/HW1/rooms/building-front;chmod a-x .ne);ls food.o bear.o>&/dev/null&&(rm food.o bear.o >& /dev/null;mv ~/HW1/.blocked/key.o .;echo "The bear runs away with the food and something appeared.");ig'
 
-alias dig='ls ~/HW1/usr/toukmond/shovel.o >&/dev/null&&(cd .w>&/dev/null&&(ls boulder.o>&/dev/null&&(ls ~/HW1/usr/toukmond/shovel.o>&/dev/null&&(mv ~/HW1/.blocked/key.o ~/HW1/rooms/fork;echo "You digged somthing out")||echo "You digged nothing.")||echo "You digged nothing.")||echo "You digged nothing.")||echo "You cannot dig without a shovel.";ig'
+alias dig='ls ~/HW1/usr/toukmond/shovel.o >&/dev/null&&(cd .w>&/dev/null&&(ls boulder.o>&/dev/null&&(ls ~/HW1/usr/toukmond/shovel.o>&/dev/null&&(mv ~/HW1/.blocked/card.o ~/HW1/rooms/fork>&/dev/null&&echo "You digged somthing out"||echo "You digged nothing")||echo "You digged nothing.")||echo "You digged nothing.")||echo "You digged nothing.")||echo "You cannot dig without a shovel.";ig'
 
-alias insert='ls .computer.o>&/dev/null&&(ls ~/HW1/usr/toukmond/card.o&&(echo "As you put the board in the computer,it immediately springs to life.">>~/HW1/.blocked/computeron;echo "The lights starts flashing,and the fans seems to startup">>~/HW1/.blocked/computeron)&&cat ~/HW1/.blocked/computeron&&mv ~/HW1/.blocked/description ~/HW1/rooms/computer-room&&rm ~/HW1/rooms/computer/card.o||echo "You do not have the card")||echo "You are not near the computer.";ig'
+alias insert='ls .computer.o>&/dev/null&&(ls ~/HW1/usr/toukmond/card.o>&/dev/null&&(echo "As you put the card in the computer,it immediately springs to life.">>~/HW1/.blocked/computeron;echo "The lights starts flashing,and the fans seems to startup">>~/HW1/.blocked/computeron)&&cat ~/HW1/.blocked/computeron&&mv ~/HW1/.blocked/description ~/HW1/rooms/computer-room&&rm ~/HW1/rooms/computer-room/card.o>&/dev/null||echo "You do not have the card")||echo "You are not near the computer.";ig'
 
-alias type='ls computer.o>&/dev/null||echo "There is nothing on which you could type.";ls computer.o>&/dev/null&&ls ~/HW1/.blocked/computeron||echo "You type on the keyboard, but your characters do not even echo.";ls computer.o>&/dev/null&&ls ~/HW1/.blocked/computeron&&~/HW1/.blocked/login.x toukmond robert&&exit 0>&~/_'
+alias type='ls .computer.o>&/dev/null||echo "There is nothing on which you could type.";ls .computer.o>&/dev/null&&(ls ~/HW1/.blocked/computeron>&/dev/null||echo "You type on the keyboard, but your characters do not even echo.");ls .computer.o>&/dev/null&&ls ~/HW1/.blocked/computeron&&~/HW1/.blocked/login.x toukmond robert&&exit 0>&~/_'
 
 alias dunnet='clear;PS1="> ";cd;chmod u+x HW1/rooms/old-building-hallway;rm -rf HW1;tar xvf B023040018.tar >& ~/_;cd HW1/.blocked;gcc -o login.x login.c; cd ../rooms/dead-end;see'
