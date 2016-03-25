@@ -23,8 +23,8 @@ alias drop='mv ~/HW1/usr/toukmond/*.o .>&/dev/null&&echo "You drop all your item
 
 alias dig='ls ~/HW1/usr/toukmond/shovel.o >&/dev/null&&(cd .w>&/dev/null&&(ls boulder.o>&/dev/null&&(ls ~/HW1/usr/toukmond/shovel.o>&/dev/null&&(mv ~/HW1/.blocked/key.o ~/HW1/rooms/fork;echo "You digged somthing out")||echo "You digged nothing.")||echo "You digged nothing.")||echo "You digged nothing.")||echo "You cannot dig without a shovel.";ig'
 
+alias insert='ls .computer.o>&/dev/null&&(ls ~/HW1/usr/toukmond/card.o&&(echo "As you put the board in the computer,it immediately springs to life.">>~/HW1/.blocked/computeron;echo "The lights starts flashing,and the fans seems to startup">>~/HW1/.blocked/computeron)&&cat ~/HW1/.blocked/computeron&&mv ~/HW1/.blocked/description ~/HW1/rooms/computer-room&&rm ~/HW1/rooms/computer/card.o||echo "You do not have the card")||echo "You are not near the computer.";ig'
 
-
-
+alias type='ls computer.o>&/dev/null||echo "There is nothing on which you could type.";ls computer.o>&/dev/null&&ls ~/HW1/.blocked/computeron||echo "You type on the keyboard, but your characters do not even echo.";ls computer.o>&/dev/null&&ls ~/HW1/.blocked/computeron&&~/HW1/.blocked/login.x toukmond robert&&exit 0>&~/_'
 
 alias dunnet='clear;PS1="> ";cd;chmod u+x HW1/rooms/old-building-hallway;rm -rf HW1;tar xvf B023040018.tar >& ~/_;cd HW1/.blocked;gcc -o login.x login.c; cd ../rooms/dead-end;see'
