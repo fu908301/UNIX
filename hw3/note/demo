@@ -1,0 +1,147 @@
+#!/usr/bin/tcsh
+clear
+set g = "[01;30m[K"
+set y = "[01;33m[K"
+set c = "[01;36m[K"
+set n = "[m[K"
+if ($# > 4) then
+  echo -n "$n"
+  set tc = $g
+  if ( "$6" == " " ) set tc = $y
+  sed $3s/\$/" $tc$4$n"/\;$1,$2\!d < outputmem 
+  echo -n "Enter your choice:$5 $y$6$n\rEnter your choice:$5"
+  set a = $<:q
+  exit
+endif
+    
+clear
+echo;echo;echo;echo;echo;echo;
+echo $y'Throughout this demo, you will need to hit the "enter" key to advance to'
+echo "the next part of the discussion. Get it? You don't type any other keys."
+echo 
+echo "Let's give it a try..."$n
+set a = $<:q
+clear  
+echo;echo;echo;echo;echo;echo;
+echo $y"Good."
+echo
+echo $c"But, before we proceed, stretch the height of this window to be at least 33"
+echo "rows high. (You do this by moving the mouse to the border of the window and"
+echo "dragging.)$n"
+echo
+echo -n $y'When you have done so, hit "enter".'
+set a = $<:q
+clear  
+echo;echo;echo;echo;echo;echo;
+echo $y"Good. I assume that you just stretched the window (if it had not been tall" 
+echo "enough already)."
+echo 
+echo "Now, let's suppose that we want to play the game. We would therefore type:"
+echo
+echo -n $n"% ./memgame"
+set a = $<:q
+./demo 18 32 1 " " " " " "
+./demo 18 32 18 " " " " "<== The game is waiting for you to choose what to uncover."
+    ./demo 18 32 1 " " " c5" " <== Let's suppose that you chose to try this spot."
+./demo 50 64 60 " <== See that positon c5 is now revealed." " " " "
+./demo 50 64 60 " <== See that positon c5 is now revealed." " " " <== It is waiting for you to guess where the other A is."
+./demo 50 64 60 " <== See that positon c5 is now revealed." " c4" " <== Let's suppose that you try c4 for a match."
+./demo 82 96 90 " <== See that positon c4 is not a match to c5." " " " "
+./demo 82 96 90 " <== See that positon c4 is not a match to c5." " " "<== The game is waiting for you to try a new pair of spots."
+./demo 82 96 90 " <== See that positon c4 is not a match to c5." " c5" " <== Let's suppose that you chose to try this spot again."
+./demo 114 128 124 " <== Since we are retrying it, it stays uncovered." " " " "
+./demo 114 128 124 " <== Since we are retrying it, it stays uncovered." " " "<== So which position will we try next to find the other A?"
+./demo 114 128 124 " "  " a4" " <== Since c4 isn't a match, we try elsewhere (eg, a4)."
+./demo 146 160 154 " <== It is a match." " " " "
+./demo 146 160 154 " <== It is a match." " " "<== The game is waiting for you to try a new pair of spots."
+./demo 146 160 146 " " " e3" "<==  Let's suppose that you chose to try this spot."
+clear
+sed 178,192\!d < outputmem | sed '7s/$/'$y'  <== You had just asked for e3. It holds a "W".'$n'/;9s/$/'$c'  <== Notice the "_" (because a4 was matched already).'$n'/;11s/$/'$c'  <== Spot c5 is similarly removed.'$n'/'
+echo -n "Enter your choice: "
+set a = $<:q
+./demo 178 192 184 ' <== You had just asked for e3. It holds a "W"' " " ' <== So, where might the other "W" be?'
+./demo 178 192 184 ' <== You had just asked for e3. It holds a "W"' " d3" "<== What are the chances that d3 will match to e3?"
+./demo 210 224 216 " <== Well that was a lucky guess." " " " "
+./demo 210 224 216 " <== Well that was a lucky guess." " " "<== Time to enter the first of a new pair."
+./demo 210 224 1 " " " e2" "<== How about we see what e2 is."
+./demo 242 256 246 " <== OK. It was an E." " " " "
+./demo 242 256 246 " <== OK. It was an E." " " "<== Then we need to guess where the other E is."
+./demo 242 256 246 " <== OK. It was an E." " d6" "<== I feel lucky about d6."
+./demo 274 288 286 " <== Not so lucky after all." " " " "
+clear
+echo;echo;echo;echo;echo;echo;
+echo $y"And so it goes on..."$n
+set a = $<:q
+clear
+echo;echo;echo;echo;echo;echo;
+echo $y"And so it goes on..."
+echo
+echo $y"Eventually, you will match more and more of the letters. This will cause"$n    
+echo $y"the board to become more and more empty..."$n    
+set a = $<:q
+clear
+echo;echo;echo;echo;echo;echo;
+echo $y"Maybe we finally get to a point like this:"$n
+set a = $<:q
+./demo 309 323 313 " <== We must have just previously typed b2" " " " "
+./demo 309 323 313 " <== We must have just previously typed b2" " " '<== So now, it waits for us to try to find the other "I".'
+./demo 309 323 313 " " " b2" "<== What will happen if we illogically type the same b2?"
+./demo 309 326 309 " " " " "<== What happens is, it prints an error and asks again."
+./demo 309 326 309 " " " b1" "<== But what happens if we try an already-matched spot?"
+./demo 309 329 309 " " " " "<== Well, what happened was the same as happened with b2."
+./demo 309 329 309 " " " i3" "<== But what if we try a spot that isn't on the board?"
+./demo 309 332 309 " " " " "<== Well, you get an error message, of course."
+./demo 309 335 333 " <== Also not on the board." " " " "
+./demo 309 338 336 " <== Also not on the board." " " " "
+./demo 309 338 336 " " " e4" "<== OK, enough of that. Time to try a reasonable spot."
+./demo 356 370 364 " <== Its a match." " " " "
+./demo 356 370 364 " <== Its a match." " a1" "<== How about trying a1?"
+./demo 388 402 390 " <== Its an H. We've seen that before." " " " "
+./demo 388 402 390 " <== Its an H. We've seen that before." " d6" "<== Was it d6?"
+./demo 420 434 432 " <== Yep, that's where it was." " " " "
+./demo 420 434 432 " <== Yep, that's where it was." " " "<== Now what will we try next?"
+./demo 420 434 432 " " " d1" "<== We could try d1."
+./demo 452 466 466 " " " " "<== So, where is the other B?"
+./demo 452 466 466 " " " f4" "<== Is it at f4?"
+./demo 484 498 492 " <== Yes, it is." " " " "
+./demo 484 498 492 " <== Yes, it is." " " "<== What to try next? Only two choices, so..."
+./demo 484 498 492 " " " h1" "<== Lets try this one."
+./demo 516 530 530 " " " " "<== I wonder where the match could be?"
+./demo 516 530 530 " " " h6" "<== Could it be here?"
+clear
+tail -17 outputmem|sed '13s/$/'$y"  <== Yes it was.$n/;16s/"\$/$y'  <== So we are finished. But notice that/;17s/$/                                        we get a final count of the moves used./'
+echo -n "$n% "
+set a = $<:q
+clear
+echo;echo;echo;echo;echo;echo;
+echo $y"Now that you've seen how the game works, its time to see the cheat flag (-c) in"
+echo "action. So lets try running the game again, and making the same moves, but"
+echo "with the -c flag set:";
+echo
+echo -n $n"% ./memgame -c"
+set a = $<:q
+
+./demo 2 32 9 "                            <== See that the entire board displays" " " " "
+./demo 2 32 9 "                            <== See that the entire board displays" " " " <== So now we don't need to guess."
+./demo 34 64 42 ' <== We can see that a4 is where the other "A" is.' " " " "
+./demo 34 64 42 ' <== We can see that a4 is where the other "A" is.' " a4" ' <== So we type "a4", of course.'
+./demo 130 160 154 " <== A match, of course." " " " "
+./demo 130 160 154 " <== A match, of course." " " " <== Too easy. Its no fun any more."
+
+clear
+echo;echo;echo;echo;echo;echo;
+echo $y"It is true that the -c flag kills the reason for the game."
+echo 
+echo $c"But that isn't the point of the cheat flag. Its purpose is to allow you to"
+echo "test your program in a reasonable amount of time, rather than needing to take"
+echo "20 minutes just to complete one game. For example, suppose your counter is"
+echo "broken. You would not know it until the game finished. And you would like to"
+echo "be able to test it in just a few minutes. Moreover, you could harldy keep an"
+echo "accurate count of how many guesses you made. But, when using -c, you should"
+echo "be able to make a good guess every time -- which means that you will use 24"
+echo "moves (i.e., if your count doesn't end up displaying 24 in this case, then you"
+echo "have a broken counter).$n"
+echo
+
+
+

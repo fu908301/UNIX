@@ -1,0 +1,564 @@
+% ./memgame -c
+   a  b  c  d  e  f  g  h
+
+1  H  X  N  B  G  P  V  J
+
+2  S  I  M  P  E  V  X  O
+
+3  R  Q  L  W  W  F  Q  U
+
+4  A  S  U  D  I  B  K  T
+
+5  F  L  A  G  T  N  K  D
+
+6  O  R  E  H  M  C  C  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  ?  ?  ?  ?  ?  ?  ?  ?
+
+2  ?  ?  ?  ?  ?  ?  ?  ?
+
+3  ?  ?  ?  ?  ?  ?  ?  ?
+
+4  ?  ?  ?  ?  ?  ?  ?  ?
+
+5  ?  ?  ?  ?  ?  ?  ?  ?
+
+6  ?  ?  ?  ?  ?  ?  ?  ?
+
+
+Enter your choice: c5
+   a  b  c  d  e  f  g  h
+
+1  H  X  N  B  G  P  V  J
+
+2  S  I  M  P  E  V  X  O
+
+3  R  Q  L  W  W  F  Q  U
+
+4  A  S  U  D  I  B  K  T
+
+5  F  L  A  G  T  N  K  D
+
+6  O  R  E  H  M  C  C  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  ?  ?  ?  ?  ?  ?  ?  ?
+
+2  ?  ?  ?  ?  ?  ?  ?  ?
+
+3  ?  ?  ?  ?  ?  ?  ?  ?
+
+4  ?  ?  ?  ?  ?  ?  ?  ?
+
+5  ?  ?  [01;31m[KA[m[K  ?  ?  ?  ?  ?
+
+6  ?  ?  ?  ?  ?  ?  ?  ?
+
+
+Enter your choice: c4
+   a  b  c  d  e  f  g  h
+
+1  H  X  N  B  G  P  V  J
+
+2  S  I  M  P  E  V  X  O
+
+3  R  Q  L  W  W  F  Q  U
+
+4  A  S  U  D  I  B  K  T
+
+5  F  L  A  G  T  N  K  D
+
+6  O  R  E  H  M  C  C  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  ?  ?  ?  ?  ?  ?  ?  ?
+
+2  ?  ?  ?  ?  ?  ?  ?  ?
+
+3  ?  ?  ?  ?  ?  ?  ?  ?
+
+4  ?  ?  [01;31m[KU[m[K  ?  ?  ?  ?  ?
+
+5  ?  ?  [01;31m[KA[m[K  ?  ?  ?  ?  ?
+
+6  ?  ?  ?  ?  ?  ?  ?  ?
+
+
+Enter your choice: c5
+   a  b  c  d  e  f  g  h
+
+1  H  X  N  B  G  P  V  J
+
+2  S  I  M  P  E  V  X  O
+
+3  R  Q  L  W  W  F  Q  U
+
+4  A  S  U  D  I  B  K  T
+
+5  F  L  A  G  T  N  K  D
+
+6  O  R  E  H  M  C  C  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  ?  ?  ?  ?  ?  ?  ?  ?
+
+2  ?  ?  ?  ?  ?  ?  ?  ?
+
+3  ?  ?  ?  ?  ?  ?  ?  ?
+
+4  ?  ?  ?  ?  ?  ?  ?  ?
+
+5  ?  ?  [01;31m[KA[m[K  ?  ?  ?  ?  ?
+
+6  ?  ?  ?  ?  ?  ?  ?  ?
+
+
+Enter your choice: a4
+   a  b  c  d  e  f  g  h
+
+1  H  X  N  B  G  P  V  J
+
+2  S  I  M  P  E  V  X  O
+
+3  R  Q  L  W  W  F  Q  U
+
+4  A  S  U  D  I  B  K  T
+
+5  F  L  A  G  T  N  K  D
+
+6  O  R  E  H  M  C  C  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  ?  ?  ?  ?  ?  ?  ?  ?
+
+2  ?  ?  ?  ?  ?  ?  ?  ?
+
+3  ?  ?  ?  ?  ?  ?  ?  ?
+
+4  [01;31m[KA[m[K  ?  ?  ?  ?  ?  ?  ?
+
+5  ?  ?  [01;31m[KA[m[K  ?  ?  ?  ?  ?
+
+6  ?  ?  ?  ?  ?  ?  ?  ?
+
+
+Enter your choice: e3
+   a  b  c  d  e  f  g  h
+
+1  H  X  N  B  G  P  V  J
+
+2  S  I  M  P  E  V  X  O
+
+3  R  Q  L  W  W  F  Q  U
+
+4  _  S  U  D  I  B  K  T
+
+5  F  L  _  G  T  N  K  D
+
+6  O  R  E  H  M  C  C  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  ?  ?  ?  ?  ?  ?  ?  ?
+
+2  ?  ?  ?  ?  ?  ?  ?  ?
+
+3  ?  ?  ?  ?  [01;31m[KW[m[K  ?  ?  ?
+
+4  _  ?  ?  ?  ?  ?  ?  ?
+
+5  ?  ?  _  ?  ?  ?  ?  ?
+
+6  ?  ?  ?  ?  ?  ?  ?  ?
+
+
+Enter your choice: d3
+   a  b  c  d  e  f  g  h
+
+1  H  X  N  B  G  P  V  J
+
+2  S  I  M  P  E  V  X  O
+
+3  R  Q  L  W  W  F  Q  U
+
+4  _  S  U  D  I  B  K  T
+
+5  F  L  _  G  T  N  K  D
+
+6  O  R  E  H  M  C  C  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  ?  ?  ?  ?  ?  ?  ?  ?
+
+2  ?  ?  ?  ?  ?  ?  ?  ?
+
+3  ?  ?  ?  [01;31m[KW[m[K  [01;31m[KW[m[K  ?  ?  ?
+
+4  _  ?  ?  ?  ?  ?  ?  ?
+
+5  ?  ?  _  ?  ?  ?  ?  ?
+
+6  ?  ?  ?  ?  ?  ?  ?  ?
+
+
+Enter your choice: e2
+   a  b  c  d  e  f  g  h
+
+1  H  X  N  B  G  P  V  J
+
+2  S  I  M  P  E  V  X  O
+
+3  R  Q  L  _  _  F  Q  U
+
+4  _  S  U  D  I  B  K  T
+
+5  F  L  _  G  T  N  K  D
+
+6  O  R  E  H  M  C  C  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  ?  ?  ?  ?  ?  ?  ?  ?
+
+2  ?  ?  ?  ?  [01;31m[KE[m[K  ?  ?  ?
+
+3  ?  ?  ?  _  _  ?  ?  ?
+
+4  _  ?  ?  ?  ?  ?  ?  ?
+
+5  ?  ?  _  ?  ?  ?  ?  ?
+
+6  ?  ?  ?  ?  ?  ?  ?  ?
+
+
+Enter your choice: d6
+a  b  c  d  e  f  g  h
+
+1  H  X  N  B  G  P  V  J
+
+2  S  I  M  P  E  V  X  O
+
+3  R  Q  L  _  _  F  Q  U
+
+4  _  S  U  D  I  B  K  T
+
+5  F  L  _  G  T  N  K  D
+
+6  O  R  E  H  M  C  C  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  ?  ?  ?  ?  ?  ?  ?  ?
+
+2  ?  ?  ?  ?  [01;31m[KE[m[K  ?  ?  ?
+
+3  ?  ?  ?  _  _  ?  ?  ?
+
+4  _  ?  ?  ?  ?  ?  ?  ?
+
+5  ?  ?  _  ?  ?  ?  ?  ?
+
+6  ?  ?  ?  [01;31m[KH[m[K  ?  ?  ?  ?
+
+
+Enter your choice: b1
+...
+...
+...
+   a  b  c  d  e  f  g  h
+
+1  H  _  _  B  _  _  _  J
+
+2  _  I  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  I  B  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  H  _  _  _  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  ?  _  _  ?  _  _  _  ?
+
+2  _  [01;31m[KI[m[K  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  ?  ?  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  ?  _  _  _  ?
+
+
+Enter your choice: b2
+That place is already revealed. Please try again.
+
+Enter your choice: b1
+That place is already revealed. Please try again.
+
+Enter your choice: i1
+Invalid choice. Please try again.
+
+Enter your choice: b0
+Invalid choice. Please try again.
+
+Enter your choice: b7
+Invalid choice. Please try again.
+
+Enter your choice: e4
+   a  b  c  d  e  f  g  h
+
+1  H  _  _  B  _  _  _  J
+
+2  _  I  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  I  B  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  H  _  _  _  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  ?  _  _  ?  _  _  _  ?
+
+2  _  [01;31m[KI[m[K  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  [01;31m[KI[m[K  ?  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  ?  _  _  _  ?
+
+
+Enter your choice: a1
+   a  b  c  d  e  f  g  h
+
+1  H  _  _  B  _  _  _  J
+
+2  _  _  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  _  B  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  H  _  _  _  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  [01;31m[KH[m[K  _  _  ?  _  _  _  ?
+
+2  _  _  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  _  ?  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  ?  _  _  _  ?
+
+
+Enter your choice: d6
+   a  b  c  d  e  f  g  h
+
+1  H  _  _  B  _  _  _  J
+
+2  _  _  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  _  B  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  H  _  _  _  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  [01;31m[KH[m[K  _  _  ?  _  _  _  ?
+
+2  _  _  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  _  ?  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  [01;31m[KH[m[K  _  _  _  ?
+
+
+Enter your choice: d1
+   a  b  c  d  e  f  g  h
+
+1  _  _  _  B  _  _  _  J
+
+2  _  _  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  _  B  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  _  _  _  _  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  _  _  _  [01;31m[KB[m[K  _  _  _  ?
+
+2  _  _  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  _  ?  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  _  _  _  _  ?
+
+
+Enter your choice: f4
+   a  b  c  d  e  f  g  h
+
+1  _  _  _  B  _  _  _  J
+
+2  _  _  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  _  B  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  _  _  _  _  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  _  _  _  [01;31m[KB[m[K  _  _  _  ?
+
+2  _  _  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  _  [01;31m[KB[m[K  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  _  _  _  _  ?
+
+
+Enter your choice: h1
+   a  b  c  d  e  f  g  h
+
+1  _  _  _  _  _  _  _  J
+
+2  _  _  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  _  _  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  _  _  _  _  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  _  _  _  _  _  _  _  [01;31m[KJ[m[K
+
+2  _  _  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  _  _  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  _  _  _  _  ?
+
+
+Enter your choice: h6
+   a  b  c  d  e  f  g  h
+
+1  _  _  _  _  _  _  _  J
+
+2  _  _  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  _  _  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  _  _  _  _  J
+
+-------------------------
+
+   a  b  c  d  e  f  g  h
+
+1  _  _  _  _  _  _  _  [01;31m[KJ[m[K
+
+2  _  _  _  _  _  _  _  _
+
+3  _  _  _  _  _  _  _  _
+
+4  _  _  _  _  _  _  _  _
+
+5  _  _  _  _  _  _  _  _
+
+6  _  _  _  _  _  _  _  [01;31m[KJ[m[K
+
+
+Congratulations! Finished in 26 moves.
+
