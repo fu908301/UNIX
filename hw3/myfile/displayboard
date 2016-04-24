@@ -1,0 +1,10 @@
+#!/usr/bin/tcsh
+clear
+if(X$argv[3] == X-c)then
+  echo "   a  b  c  d  e  f  g  h\n"
+  grep -o " [A-Z], [A-Z], [A-Z], [A-Z], [A-Z], [A-Z], [A-Z], [A-Z]," memboard | grep -n "[A-Z]" - | tr ":," "  " > gt
+  seq 10 10 50 >> gt
+  sort -k 1,1 tmp | grep -C0 "[\ ]" | tr -d '-'
+  echo "\n-------------------------\n"
+endif
+
