@@ -5,16 +5,16 @@ set posx = 0
 set posy = 0
 set moves = 0
 while 1
-  ./displayboard posx posy $1
+  ./displayboard $posx $posy $1
   if($status == 0)then
     cat memboard | tr `head -1 tmpfile3| tr -d "[0-9] \t"` '_' > tmpfile
-    mv tmpfile memgame
-    grep -v "[A-Z]" letters && echo a\\nb && exit
+    mv tmpfile memboard
+    grep -q -v "[A-Z]" memboard && echo a\\nb && exit
   endif
   ./getchoice 0
-  $posy = $status
-  ./displayboard posx 0 $1
-  ./getchoice posy
-  $posx = $status
+  @ posy = $status
+  ./displayboard $posy 0 $1
+  ./getchoice $posy
+  @ posx = $status
   @ moves++
 end

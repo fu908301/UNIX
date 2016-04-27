@@ -2,19 +2,19 @@
 clear
 if(X$3 == X-c)then
   echo "   a  b  c  d  e  f  g  h\n"
-  grep -o " [A-Z], [A-Z], [A-Z], [A-Z], [A-Z], [A-Z], [A-Z], [A-Z]," memboard | grep -n "[A-Z]" - | tr ":," "  " > gt
+  grep -o " [A-Z?_], [A-Z?_], [A-Z?_], [A-Z?_], [A-Z?_], [A-Z?_], [A-Z?_], [A-Z?_]," memboard | grep -n "[A-Z?_]" - | tr ":," "  " > gt
   seq 10 10 50 >> gt
   sort -k 1,1 gt | grep -C0 "[\ ]" | tr -d '-'
   echo "\n-------------------------\n"
 endif
 cat memboard | tr ',' '\n' | cat -n > tmpfile2
 grep -e "[^0-9]$1[^0-9]" -e "[^0-9]$2[^0-9]" tmpfile2 > tmpfile3
-cat tmpfile2 | tr -d "[0-9] \t" | sort  | uniq -c | grep -o "[34]" - > temp11;set y=$?
+cat tmpfile3 | tr -d "[0-9] \t" | sort  | uniq -c | grep -o "2" - > temp11;set y=$?
 grep -v -e "[^0-9]$1[^0-9]" -e "[^0-9]$2[^0-9]" tmpfile2 | tr "[A-X]" \? >> tmpfile3
 sort tmpfile3 -n | tr -d " [0-9]" | tr "\n\t" ", " > tmpfile4
 echo "   a  b  c  d  e  f  g  h\n"
-grep -o " [A-Z], [A-Z], [A-Z], [A-Z], [A-Z], [A-Z], [A-Z], [A-Z]," tmpfile4 | grep -n "[A-Z]" - | tr ":," "  " > gt
-seq 10 10 50 >> gt
-sort -k 1,1 gt | grep -C0 "[\ ]"| tr -d '-' | grep --color -C6 "[A-Z\ ]"
+grep -o " [A-Z\?\_], [A-Z\?\_], [A-Z\?\_], [A-Z\?\_], [A-Z\?\_], [A-Z\?\_], [A-Z\?\_], [A-Z\?\_]," tmpfile4 | grep -n "[A-Z\?\_]" - | tr ":," "  " > gt2
+seq 10 10 50 >> gt2
+sort -k 1,1 gt2 | grep -C0 "[\ ]"| tr -d '-' | grep --color -C6 "[A-Z\ ]"
 echo 
 exit $y
