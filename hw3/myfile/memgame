@@ -1,5 +1,5 @@
 #!/usr/bin/tcsh
-echo ABCDEFGHIJKLMNOPQRSTUVWXabcdefghijklmnopqrstuvwx | grep -o -n "[A-Xa-x]" - | cut -c 2- > letters
+echo ABCDEFGHIJKLMNOPQRSTUVWX | grep -o -n "[A-X]" - | cut -c 2- | tee letters ;cat letters |tr "[A-X]" "[a-x]"  >> letters
 sort -R letters | tr '[a-z]:\n' '[A-Z] ,' > memboard
 set posx = 0
 set posy = 0
