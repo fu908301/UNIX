@@ -1,0 +1,22 @@
+#!/usr/bin/tcsh
+echo -n ABCDEFGHIJKLMNOPQRSTUVWX | sed 's/[A-X]/&\n/g' | tee memboard | tr " " "\n" | tr A-Z a-z > lets; cat memboard >> lets
+set array1 = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X"}
+set array2 = {"▲","△","▼","▽","◆","○","☀","☁","☂","☆","★","☎","☢","☮","☯","☺","☻","♔","♛","♜","♝","♞","♟","♠"}
+
+cat lets | sort -R | tr "a-z" "A-Z" > memboard
+@ choice1 = 50
+@ choice2 = 50
+@ cnt = 50
+while (1)
+  ./displayboard $choice1 $choice2 X$1
+  if($? == 1) then
+    expr 1 + `cat f3 | sed -n 's/[^A-X]/1/g;s/[0-9]/ /g;s/[ ]/1/p'`>&/dev/null && echo \\nCongratulations\! Finished in $cnt moves.\\n && exit
+    mv -f f3 memboard
+  endif
+  ./getchoice 50
+  set choice1 = $?
+  ./displayboard $choice1 50 X$1
+  ./getchoice $choice1
+  set choice2 = $?
+  @ cnt++
+end

@@ -1,0 +1,18 @@
+#!/usr/bin/tcsh
+clear
+if ($3 == "X-c" ) then
+  echo "   a  b  c  d  e  f  g  h\n"
+  grep -o " ., ., ., ., ., ., ., ." memboard | grep -n .| tr ":," " " >gt
+  seq 10 10 50 >> gt
+  sort gt | grep -A0 ... | tr -d "-"
+  echo "\n-------------------------\n"
+endif
+cat memboard | tr , '\n' | cat -n > f1
+grep -e " $1""[^0-9]" -e " $2""[^0-9]" f1 >f2
+@ m = `tr -dc "A-Z\n" < f2 | uniq | wc -l`    
+grep -v -e " $1""[^0-9]" -e " $2""[^0-9]" f1 | tr A-Z \? >> f2
+sort f2 | tr -d '0-9 ' | tr \\n\\t ,\  > f3
+echo "   a  b  c  d  e  f  g  h\n"
+grep -o " ., ., ., ., ., ., ., ." f3 | grep -n .| tr ":," " " >gt; seq 10 10 50 >> gt ; sort gt | grep -A0 ... | tr -d "-" | grep --color -e "[A-Z]" -e "^"
+echo 
+exit $m

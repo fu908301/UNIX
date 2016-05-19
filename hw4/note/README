@@ -1,0 +1,468 @@
+                         UNIX System Programming
+                         Programing Assignment #4
+                        "Different than My Memory"
+
+Due: Monday, May 30  at  11:59 pm.
+
+Submission method: You will post to the course website. The TAs will post 
+                   instructions on how to do this.
+
+Submission rules: I REQUIRE you to FOLLOW THESE RULES:
+
+                  1. Submit one tar file named "<your student ID>.tar"
+
+                  2. The contents of the tar file will be:
+		     - One directory, named "<your student ID>.PA4".
+		     - Three files, named "memgame," "displayboard" and
+		       "getchoice".
+		       These three files must be contained within the
+		       "<your student ID>.PA4" directory.
+
+                  3. Submissions made after the deadline will be ignored.
+                     (That means, no late submissions on this assignment.)
+                     (By the way, if you don't turn in your assignments, you
+                      will probably Fail The Class. That's a Fact. So start
+                      early and ask questions.)
+                  
+                  This is a large class. Unless each of you follows the above
+                  rules, the TAs' work becomes so hard. So I INSIST that you 
+                  FOLLOW the above rules. If you don't, we won't accept your 
+                  homework.
+
+                  If you have questions about these rules, you may post your 
+                  questions to the course website.
+
+
+Getting help:   - The Professor has office hours on Monday from 12:20-2:20, 
+                  and on Friday from 10:00-12:00, in room 9037.  He can also 
+                  be reached by email.
+                - The TAs are also available to answer your questions.
+                - Questions about the assignment can be posted to the 
+                  Discussion Forum.
+                - You may also discuss the ideas of the assignment with your
+                  classmates. Such discussions can be quite helpful to your 
+                  learning -- IF you ONLY talk about the general concepts of
+		  the steps of the assignment.
+		  - If, however, you tell other students the specific details
+		    of your implementation, then you are not helping each other
+		    to learn; you are just doing the work for them.
+                    In other words, you are cheating. You CANNOT show another
+		    student ANY part of the answer to the assignment.
+
+Cheating policy:  We encourage students to form study groups. But this does not
+                  mean sharing code. If students are found to be sharing work,
+		  they can receive a 0 for the entire course, or worse.
+                  It is cheating to let another student see your work, or to 
+                  let them look over your shoulder when your code is on the
+		  screen.
+		  A good way to know you cheated: if you have code that is in
+		  your solution just because another student told you to put
+		  it there, but you don't actually understand it.
+		  If you are still unsure, you can ask the TA for more
+		  explanation.
+                  We always look for evidence of cheating, so don't do it.
+                  (In any event, even if you do not get caught, those who 
+                  copy the homework will not learn the material, so they 
+                  will fail the exam.)
+
+Most Important    The programming assignments are a large part of the grade.
+Things to Know:	  This large point value means that, if you don't do them, you
+		  will fail.
+		  The large point value also explains why the policy against
+		  cheating is strictly enforced.
+		  
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Assignment Summary:
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+: Part 1. The Concept of the Assignment :
+'''''''''''''''''''''''''''''''''''''''''
+In homework 3, you created a memory game. At the time, you may not have
+realized that many of the complex parts of the assignment were caused by the
+fact that we were using the wrong tool for the job. The right tool for the
+job was sed, but we did not know sed, so we had to manage with commands that
+we knew. Fundamentally, it comes down to three things: 1) we wanted to add
+characters, 2) we wanted to select specific lines, and 3) we couldn't use
+unicode. Here is what I mean:
+
+1) Adding characters.
+   Consider how we can use tr to do the same work as d2u (dos2unix):
+   % cat file.dosformat | u2d > file.unixformat
+   % cat file.dosformat | tr -d "\r" > file.alsounixformat
+
+   And, by the way, you could also use sed to do the same thing:
+   % cat file.dosformat | sed 's/\r$//' > file.alsoalsounixformat
+
+   But, now, consider that tr cannot do the same work as u2d, because the job
+   of u2d is to ADD a "\r" at the end of each line. Although the -d flag allows
+   tr to REMOVE characters -- but there is no way to add characters with tr.
+
+   But sed is different; it CAN add characters:
+   % cat file.unixformat | d2u > file.dosformat
+   % cat file.alsounixformat | sed 's/$/\r/' > file.alsodosformat
+
+   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+   But what does adding characters have to do with homework 3? Well, consider
+   the first two lines of the megame file:
+
+   % head -2 memgame
+   #!/usr/bin/tcsh
+   echo ABCDEFGHIJKLMNOPQRSTUVWX | grep -no . | tr -d 1 | tee memboard | tr A-Z a-z > lets; cat memboard >> lets
+   %
+
+   Actually, there is something weird going on in the above code. We are using
+   grep to add characters before and after each letter: the "." separates the
+   individual characters, the -n adds numbers and colon on the left of each
+   character (then the tr -d removes the number so that only the colon is left
+   on the left), the -o adds a "\n" on the right of each character.
+
+   Essentially, we were using grep to do a job that grep wasn't really meant
+   to do. But this is the kind of job that sed WAS meant to do.
+
+2) Selecting specific lines.
+   The essential job of the memory game is to expose one or two spots, while
+   leaving the other covered. And the way that this is accomplish is by
+   selecting specific lines. We did this in homework 3 by a series of complex
+   steps. But if we had known the sed command, then we could have selected
+   specific line numbers quite simply, because sed has a natural way to do
+   that.
+   
+3) We couldn't use unicode.
+   What does this mean? It means that a memory game for matching letters is not
+   very interesting; we would rather have matched symbols. But unicode symbols
+   are more-than-one byte long -- and this confuses tr (but not sed). See:
+
+   % echo abcde | tr 'bd' '▲▽'
+   a▒c▒e
+   % echo abcde | sed 'y/bd/▲▽/'
+   a▲c▽e
+   %
+   
+
+Now, in homework 4, we will redo homework 3, but with the ability to use sed.
+In this new assignment, we will not use any grep commands except the one that
+uses --color to turn the selected spots into red.
+
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,
+: Part 2. Provided files :
+''''''''''''''''''''''''''
+
+If you are reading this file, then you must have untarred the assignment.
+Looking in the untarred directory, you will see:
+   % ls
+   displayboard  getchoice  memgame  README  symbols
+
+The displayboard, getchoice, and memgame files are the solution to homework 3.
+In the rest of this README file, I will reference to the specific wording of
+this specific solution to the homework 3.
+
+The symbols file contains the unicode symbols (so that you don't need to learn
+how to get them to display).
+
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+: Part 3. A Line By Line Description of the memgame Script :
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Line 1: 
+#!/usr/bin/tcsh     (or the equivalent on your system)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 2:
+
+echo -n ABCDEFGHIJKLMNOPQRSTUVWX | sed __1__  | tee memboard | tr " " "\n" | tr A-Z a-z > lets; cat memboard >> lets
+
+ __1__: This sed command puts every letter onto its own line. (It is not
+        identical to the behavior of Line 2 of homework 3, because colons
+	don't go on the lines.)
+	You will notice that this command uses "tee memboard" and then later
+	concatenates memboard to ">> lets". Here, memboard is being used as
+	a temporary file. I did this because the original way that homework 3,
+	was done had caused trouble for some students' UNIX versions.
+	The supplied homework 3 solution also follows this new approach.
+	
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 3: 
+This line defines an array that contains all the elements of the "lets" file.
+	
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 4:
+This line defines an array that contains 24 random elements from the "symbols"
+file.
+	
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 5:
+This line creates a sed script that will have inside of it a single "y"
+command. The replacement is to turn the elements of the array from Line 3 into
+the elements of the array on Line 4. (Now, in doing this, you might worry about
+the spaces that occur between elements when you expand them. But this is
+unimportant, because both lists will have spaces in the same places.)
+	
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Lines 6-12:
+cat lets | sort -R | tr "a-z" "A-Z" > memboard
+@ choice1 = 50
+@ choice2 = 50
+@ cnt = 0
+while (1)
+  ./displayboard $choice1 $choice2 X$1
+  if ($? == 1) then
+
+These lines are basically the same as the homework 3 solution. Notice,
+however, that Lines 7 and 8 are slightly different than in the HW 3 solution,
+where the assigned numbers were "0". The key point, in either case, is that
+the number must not be in the range between 1 to 48. But I changed the "0"
+to a "50" because it works with sed.
+	
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 13:
+    __1__ >&/dev/null && echo \\nCongratulations\! Finished in $cnt moves.\\n && exit
+
+
+This line does not really need to change much from homework 3. But I want to 
+change it just for the purpose of avoiding using grep in this new assignment. 
+Originally, the __1__ part was: grep -v "[A-Z]" f5
+
+The effect was to produce a success signal (for the later &&) only when the
+f5 file contains no letters.
+
+In this new version of __1__, we will do the same thing with sed. But it is not
+that easy. Because sed doesn't have a way (that I know of) to return a failure
+signal.  So we want to instead use the sed command inside of a `` to construct
+an argument to some other command that does have the ability to return a
+failure signal. I chose the expr command. In other words:
+    expr __a__ `cat f3 | sed __b__` >&/dev/null && \
+    echo \\nCongratulations\! Finished in $cnt moves.\\n && exit
+
+Here __a__ is whatever argument(s) and flag(s) you want, and __b__ is the sed
+command(s) to find alphabetic letters and output something that makes expr
+crash if a match is found.
+
+Notice also that we use f3 instead of the f5 that was used in the homework 3
+solution (the reason being that the memgame script no longer creates f5 because
+the displayboard script has changed).
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Lines 14-22:
+    mv -f f3 memboard
+  endif
+  ./getchoice 50
+  set choice1 = $?  
+  ./displayboard $choice1 50 X$1
+  ./getchoice $choice1
+  set choice2 = $?
+  @ cnt++
+end
+
+The only changes in the above (as compared to the homework 3 solution) are the
+"f3" and the "50"s
+
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+: Part 5. A Line By Line Description of the displayboard Script :
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Lines 1-4:
+#!/usr/bin/tcsh
+clear
+if ($3 == "X-c" ) then
+  echo "   a  b  c  d  e  f  g  h"
+
+The only change in the above (as compared to the homework 3 solution) is that
+the echo command does not have the "\n" in this new version.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 5:
+This line does the work of the original displayboard solution's lines 5-7. It
+is able to do it in one line because sed is just a better way to do this kind
+of a task. (It also does one further thing, showing the symbols.)
+
+So, what was the task of those three lines from homework 3? It was taking the
+memboard file, formatting it, and displaying it.  (The display in this section
+of the displayboard script is the exposed display of all values, associated
+with the -c flag.)
+
+There are two differences, however, between the function of this new line 5
+and the previous lines 5-7. First, the output display uses unicode symbols
+instead of letters. Second, the input is a little different, because the
+memboard file does not contain commas, and is 48-lines long, instead of
+being one very long line:
+  % cat memboard.old
+   B, T, I, J, Q, A, O, K, S, L, L, R, M, D, V, V, U, D, G, A, E, B, X, N, F, S, G, F, H, N, X, K, T, I, P, U, R, E, M, J, O, Q, W, W, H, P, C, C,
+  % cat memboard
+  N
+  J
+  C
+  X
+  O
+  ...
+
+OK, so here is the format of this new line 5:
+  cat memboard | sed __1__ | sed __2__ | sed __3__ | sed __4__
+
+  __1__: This sed command sequence pulls in 8 lines of text and converts
+         the pattern space so that the letters are each separated by two
+         spaces instead of by newline characters.
+
+  __2__: This sed command adds line numbers.
+
+  __3__: This sed command sequence gets the line numbers on the same
+         lines as the corresponding display lines. It also does some
+	 other formatting to make the output the same as what the
+	 original lines 5-7 would have outputted. (To be more clear,
+	 this means that the output needs to be double spaced and
+	 have spaces inserted between the number and the text.
+
+  __4__: This sed command runs the sed file created on line 5 of
+         memgame.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Lines 6-7:
+  echo "\n-------------------------\n"
+endif
+
+The lines are the same as in homework 3.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 8:
+This line has one sed command that does the work of lines 10-14
+from homework 3. And what is that work? It is to turn all of the
+letters into question marks -- except for the letters in the
+positions indicated by $1 and $2.
+
+The format is:
+cat memboard | sed __a__ > f3
+
+  __a__: The command sequence here requires some thinking to
+         create. It includes conditional execution and branches.
+
+A few notes: 
+  1. In Lecture 11, we learned about line number conditional
+     execution.
+     But we didn't learn about branches yet (it was the next
+     topic, to be covered next week). But the branches needed
+     for this homework are not hard to understand, because it
+     is an unconditional branch. Here is an example of how it
+     works:
+        % seq 5 | sed '2,4bL;d;:L'
+        2
+	3
+	4
+
+     You see? "bL" branches to a label called "L", and ":L"
+     defines the branch target.
+
+  2. You will use a $1 and a $2. But if you put a letter
+     directly next to these (eg., $1q), then C shell will
+     crash. So you have to separate them.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 9:
+echo "   a  b  c  d  e  f  g  h"
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 10:
+  cat f3 | sed __1__ | sed __2__ | sed __3__ | sed __4__ | grep --color __5__
+
+  __1__: Identical to __1__ of Line 5. 
+  __2__: Identical to __2__ of Line 5. 
+  __3__: Identical to __3__ of Line 5. 
+  __4__: Identical to __4__ of Line 5. 
+  __5__: For this one, we have to change from homework 3. In HW3, we did
+         grep --color "[A-Z]", but that won't work now -- because we now have
+	 symbols instead of letters.
+	 So, how to deal with the symbols? Well, you can't match to THEM, so
+	 you have to make the expression that matches to everything that is
+	 NOT the things that are NOT the symbols.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 11:
+echo
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 12:
+Here, we want to define a variable that indicates if the display has located
+a match. The format is:
+
+set x = `cat f3 | sed __1__ | uniq -c | sed __2__`
+
+  __1__: Here, you want to locate letters. (Remember: there won't be more than
+         two letters in the f3 file.)
+
+  __2__: The job here is to create the output "1" in the case where the
+         "uniq -c" has achieved a count of 2.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 13:
+This updates the memboard file if a match was found. The format is:
+
+if ( $x == 1 ) cat memboard | sed __1__ > f3
+
+  __1__: This replaces the $1 and $2 lines with "_".
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 14:
+exit $x
+
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+: Part 6. A Line By Line Description of the getchoice Script :
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+Lines 1-5:
+#!/usr/bin/tcsh
+while 1
+  while 1
+    echo -n "\nEnter your choice: "
+    set ch = $<
+
+The above is the same as Homework 3
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 6:
+In homework 3, lines 6&7 were used to verify that the choices were valid. But
+now, in preparing this new homework, I realized that there was a simpler way
+to do it. The format is:
+
+  if ( $ch __1__ ) break
+
+  __1__: This part uses wildcard pattern matching to verify that the input
+         fits the expected pattern
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Lines 7-8:
+    echo "Invalid choice. Please try again."
+  end
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 9:
+In homework 3, lines 10&11 were used to calculate the number that corresponds
+to the choice the user has entered. Here is the new format:
+
+  set x = `echo $ch | sed 'y__1__;s__2__' | xargs expr`
+
+  In the above, I've given you some clues by filling in the "y" and "s"
+  commands for you.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 10:
+Here, we want to see if the choice is currently not revealed. And that means 
+that the choice is neither the same as argument 1 nor is the correspond
+position in the memboard file a "_". The format is:
+
+  ( expr __1__ && expr 1 +`cat memboard| sed __2__` ) >& /dev/null && exit $x
+
+  __1__: This compares to $1
+  __2__: This checks for the position being unrevealed. It should produce an
+         output that will make the "expr 1 +" produce a failure signal. The
+	 idea is the same as Line 13 of the memgame file, described above.
+	 (By the way, the "1 +" is not really necessary, but I have included
+	 it because it makes the implementation easier to understand.)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Lines 11-12:
+  echo "That place is already revealed. Please try again."
+end

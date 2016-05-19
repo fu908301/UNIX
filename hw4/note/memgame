@@ -1,0 +1,20 @@
+#!/usr/bin/tcsh
+echo ABCDEFGHIJKLMNOPQRSTUVWX | grep -no . | tr -d 1 | tee memboard | tr A-Z a-z > lets; cat memboard >> lets
+cat lets| sort -R | tr "a-z\n:" "A-Z, " > memboard
+@ choice1 = 0
+@ choice2 = 0
+@ cnt = 0
+while (1)
+  ./displayboard $choice1 $choice2 X$1
+  if ($? == 1) then
+    cat memboard | tr `head -1 f2|tr -dc A-Z` _ > f5
+    grep -v "[A-Z]" f5 >&/dev/null && echo \\nCongratulations\! Finished in $cnt moves.\\n && exit
+    mv -f f5 memboard
+  endif
+  ./getchoice 0
+  set choice1 = $?  
+  ./displayboard $choice1 0 X$1
+  ./getchoice $choice1
+  set choice2 = $?
+  @ cnt++
+end
