@@ -1,0 +1,8 @@
+#!/usr/bin/tcsh
+clear
+if($3 == "X-c") then
+  echo "   a  b  c  d  e  f  g  h"
+  cat memboard |sed ':a;N;$\!ba;s/\n/  /g;s/[A-Z]  [A-Z]  [A-Z]  [A-Z]  [A-Z]  [A-Z]  [A-Z]  [A-Z]/&\n/g;s/\n  /\n/g' | sed '/./=' | sed '/./N; s/\n/  /' | sed 
+  echo "\n-------------------------\n"
+endif
+cat memboard | 
