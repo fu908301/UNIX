@@ -9,6 +9,6 @@ cat memboard | sed "$1 bL;$2 bL;s/[A-X]/?/g;:L" > f3
 echo "   a  b  c  d  e  f  g  h"
 cat f3 |sed ':a;N;$\!ba;s/\n/  /g;s/[A-Z?_]  [A-Z?_]  [A-Z?_]  [A-Z?_]  [A-Z?_]  [A-Z?_]  [A-Z?_]  [A-Z?_]/&\n/g;s/\n  /\n/g' | sed '/./=' | sed '/./N; s/\n/  /' | sed -f mysed | grep --color "[^1-9?_]"
 echo
-set x = `cat f3 | sed 's/[^A-Z]//g;s/[A-Z]/&\n/' | uniq -c | sed 's/[^2]//g;s/2/1/'`
-if( $x == 1 ) cat memboard | sed "s/[$1$2]/_/g"> f3
+set x = `cat f3 | sed '{:q;N;s/[\n_?]//g;s/[A-X]/&\n/g;t q}' | uniq -c | sed -n 's/[^1-9]//g;s/1/0/g;s/2/1/g;1 p'`
+if( $x == 1 ) cat memboard | sed "$1 s/[A-X]/_/;$2 s/[A-X]/_/" > f3
 exit $x
