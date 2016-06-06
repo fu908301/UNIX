@@ -1,0 +1,5 @@
+Here is a palindrome: A man, a plan, a canal, Panama!
+Here is another one: racecar.
+Yet another: Go hang a salami. I'm a lasagna hog.
+Here is a broken one: Go hang a salami. I am a lasagna hog.
+But we have no palindrome on this line.
