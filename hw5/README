@@ -287,7 +287,7 @@ Line 1: This line checks to see if the marker is at the center of a palindrome.
         If it isn't a palindrome, then we throw away the line. So, how to do
 	it? Well, the line looks like this:
 
-        /\(\(__1__\)__2__ __3__ @ __4__ __5__ \) __6__ \)/!d
+        /\(\(__1__\)__2__ __3__ @ __4__ __5__ \)\( __6__ \)/!d
 
 
 	__1__: This is a letter.
