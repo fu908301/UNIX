@@ -1,0 +1,298 @@
+                         UNIX System Programming
+                         Programing Assignment #6
+                            "An Awkward Match"
+
+Due: Sunday, June 19  at  5:00 pm.  <-- Note the deadline!
+                                        (I plan to post the solution on Sunday
+					evening, so that you can review it for
+					the Final.)
+
+Submission method: You will post to the course website, just like the other
+                   assignments. 
+
+Submission rules: I REQUIRE you to FOLLOW THESE RULES:
+
+                  1. Submit one file named "<your student ID>.awk"
+
+                  2. Submissions made after the deadline will be ignored.
+                     (That means, no late submissions on this assignment.)
+                     (By the way, if you don't turn in your assignments, you
+                      will probably Fail The Class. That's a Fact. So start
+                      early and ask questions.)
+                  
+                  This is a large class. Unless each of you follows the above
+                  rules, the TAs' work becomes so hard. So I INSIST that you 
+                  FOLLOW the above rules. If you don't, we won't accept your 
+                  homework.
+
+                  If you have questions about these rules, you may post your 
+                  questions to the course website.
+
+
+Getting help:   - The Professor has office hours on Monday from 12:20-2:20, 
+                  and on Friday from 10:00-12:00, in room 9037.  He can also 
+                  be reached by email.
+                - The TAs are also available to answer your questions.
+                - Questions about the assignment can be posted to the 
+                  Discussion Forum.
+                - You may also discuss the ideas of the assignment with your
+                  classmates. Such discussions can be quite helpful to your 
+                  learning -- IF you ONLY talk about the general concepts of
+		  the steps of the assignment.
+		  - If, however, you tell other students the specific details
+		    of your implementation, then you are not helping each other
+		    to learn; you are just doing the work for them.
+                    In other words, you are cheating. You CANNOT show another
+		    student ANY part of the answer to the assignment.
+
+Cheating policy:  We encourage students to form study groups. But this does not
+                  mean sharing code. If students are found to be sharing work,
+		  they can receive a 0 for the entire course, or worse.
+                  It is cheating to let another student see your work, or to 
+                  let them look over your shoulder when your code is on the
+		  screen.
+		  A good way to know you cheated: if you have code that is in
+		  your solution just because another student told you to put
+		  it there, but you don't actually understand it.
+		  If you are still unsure, you can ask the TA for more
+		  explanation.
+                  We always look for evidence of cheating, so don't do it.
+                  (In any event, even if you do not get caught, those who 
+                  copy the homework will not learn the material, so they 
+                  will fail the exam.)
+
+Most Important    The programming assignments are a large part of the grade.
+Things to Know:	  This large point value means that, if you don't do them, you
+		  will fail.
+		  The large point value also explains why the policy against
+		  cheating is strictly enforced.
+		  
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Assignment Summary:
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+: Part 1. The Concept of the Assignment :
+'''''''''''''''''''''''''''''''''''''''''
+
+In previous homeworks, we developed a memory game. In this assignment, we will
+use awk to locate every match on the board. The desired behavior is best
+explained by an example. If, for example, your board looks like this:
+% cat board
+.  a  b  c  d  e  f  g  h
+
+1  ❤  ♫  ♣  ▲  ☢  ♟  ☎  ☺
+
+2  ♝  ☺  ☎  ♟  ♞  ♜  ⛒  ♪
+
+3  ▼  △  △  ❤  ☘  ✓  ❄  ✓
+
+4  ⛒  ⛨  ♞  ▼  ★  ★  ♣  ❄
+
+5  ▲  ♫  ♔  ☻  ☘  ♔  ⛨  ♜
+
+6  ☢  ♪  ♦  ♦  ♝  ☁  ☁  ☻
+
+Then, the result of running your script is:
+% ./YourIdNumber.awk < display
+.   a   b   c   d   e   f   g   h
+
+1   ❤   ♫   ♣   ▲   ☢   ♟   ☎   ☺ 
+
+2   ♝   h1  g1  f1  ♞   ♜   ⛒   ♪ 
+
+3   ▼   △   b3  a1  ☘   ✓   ❄   f3
+
+4   g2  ⛨   e2  a3  ★   e4  c1  g3
+
+5   d1  b1  ♔   ☻   e3  c5  b4  f2
+
+6   e1  h2  ♦   c6  a2  ☁   f6  d5
+
+If you compare the original board to your awk output, you will find that the
+second instance of each symbol has been replaced by the location of the first
+instance of that symbol. The spacing between symbols was also increased (so as
+to look better with the two-character fields).
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,
+: Part 2. Provided files :
+''''''''''''''''''''''''''
+
+If you are reading this file, then you must have untarred the assignment.
+Looking in the untarred directory, you will see:
+   % ls
+   board  output  README
+
+The file named "board" is exactly the input used in the example above. You can
+cat it and see this for yourself.
+
+The file named "output" is exactly the output shown in the example above. You
+can cat it and see this for yourself.
+
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+: Part 3. Implementation Concepts :
+'''''''''''''''''''''''''''''''''''
+Let us ask a question: where are the hearts in the "board" file?
+% cat board
+.  a  b  c  d  e  f  g  h
+
+1  ❤  ♫  ♣  ▲  ☢  ♟  ☎  ☺
+
+2  ♝  ☺  ☎  ♟  ♞  ♜  ⛒  ♪
+
+3  ▼  △  △  ❤  ☘  ✓  ❄  ✓
+
+4  ⛒  ⛨  ♞  ▼  ★  ★  ♣  ❄
+
+5  ▲  ♫  ♔  ☻  ☘  ♔  ⛨  ♜
+
+6  ☢  ♪  ♦  ♦  ♝  ☁  ☁  ☻
+
+We see that the hearts are at "a1" and "d3". But position "a1" is actually on
+the third line of the board file, isn't it?
+
+% cat board | sed -n 3p
+1  ❤  ♫  ♣  ▲  ☢  ♟  ☎  ☺
+
+And on this line, the heart is in the second field, right?
+
+Similarly, "d3" is the 5th filed of the 7th line. Now, to validate these
+obvious statements, we can type:
+
+% cat board | awk 'NR==3{print $2}NR==7{print $5}'
+❤
+❤
+
+So, yes, those are the positions of the hearts. And, of course, the goal of the
+assignment is to turn the second inatance of each symbol into a reference to
+the first instance. In the case of the heart symbol, this means that position
+"d3" should change from a heart to an "a1". LEt's see if it did:
+
+% cat output | awk 'NR==3{print $2}NR==7{print $5}'
+❤
+a1
+
+Yes it did. We now want to ask some concepts about: 1) how a1 became associated
+with the heart, and 2) how d3 become an "a1".
+
+So, how did a1 become associated with a heart? Well, when the second field of
+line 3 is analyzed, it will be identified as a heart. Your awk program will
+then check to see if this is the first heart or the second (every symbol has 2
+copies, so first or second are the only choices). Your awk program will observe
+that, in the case of a1, this is the first heart. So your program will create
+the association of a1 to the heart.
+
+But how is this association achieved? Well, recall slides #134-138 of the last
+lecture (SP_L13L14fin.pptx). There we saw how the German word "danke" became
+associated with the English word "thanks", so that we could replace matches
+to the element "danke" with its value in the dict array, "thanks". Now, in a
+similar way, your awk program will here be adding a heart element to an array,
+and giving that array element the value "a1".
+
+A followup question is: How to know that the value is a1? Recall that the
+position of the first heart is field #2 of line #3. Somehow this 2 has to
+become an "a" and this 3 has to become a "1". As for knowing that line 3 should
+become a "1", this is a simple equation: line number minus 1 then divided by 2.
+As for knowing that field #2 is the "a" field, recall that the first line of
+the board file tells us this:
+% head -1 board
+.  a  b  c  d  e  f  g  h
+
+So, the trick is to remember the field names, by number, WHEN LINE 1 IS READ.
+In other words, your awk program will treat the first input line differently:
+It never has matches, but it does give us the letters corresponding to fields.
+Afterall, isn't "a" in the second field of line 1? So:
+There is a       Create a 
+heart in the --> heart element with a value of
+2nd field -----> "a" (as observed from the array created from the line 1 input)
+of line #3 ----> and "1" (as computed by (3-1)/2==1).
+
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+: Part 4. A Line By Line Description of the awk Script :
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Line 1: 
+#!/usr/bin/awk -f   (or the equivalent on your system)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Lines 2-7: These lines are a single pattern action pair. The format is:
+     2	<PAT>{ACTION1
+     3	      for(LOOPHEADER)
+     4		 LOOPBODYACTION
+     5	      ACTION2
+     6	      ACTION3
+     7	     }
+Now, what are the details? Well, there are 6 capitalized parts above:
+
+PAT: This pattern should match to the first input line.
+ACTION1: This changes the output field separator to be a string of 3 spaces.
+LOOPHEADER: This loops through every field of the input line EXCEPT the first.
+LOOPBODYACTION: This creates an array which will later be useful in creating
+                the names of the matches. (For example, the "a" in "a1", as
+		discussed in part 3, above.) The final contents of the array
+		will end up as:
+		L[2]=="a", L[3]=="b", L[4]=="c", ..., and L[9]=="h".
+		Note: the L[1] element is never created.
+ACTION2: This line forces a recomputation of $0. We have talked about it in
+         class )on slide #69 of the last lecture). If you don't know what it
+	 is, then leave this line blank until you finish the rest of the
+	 assignment. At that point, you will notice that the columns don't
+	 line up on the first output line compared to the other output lines.
+	 This will be because the $0 did not recomput, so the new output field
+	 separator (assigned by ACTION1, above) did not get used. Once you see
+	 that happen, slide #69 might make more sense.
+ACTION3: This changes the output field separator to be a string of 2 spaces.
+         Q: But wait! Won't that nullify the effect of ACTION1, above?
+	 A: Yes, it will.
+	    Q: Well then, why did we do ACTION1 in the first place?
+	    A: Because ACTION2 forces a recomputation, so the first output
+	       line (and only the first output line) will use 3 spaces; all
+	       other lines use 2 spaces.
+	       Q: Why do we treat the first line differently?
+	       A1: Because the first line is different. It doesn't have symbols
+                   and never matches.
+	       A2: We did not really need to treat it this way; I can think of
+	           an alternative approach. But I like this solution, because
+		   it teaches you about the output field separator and about
+		   recomputing $0.
+		   
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Lines 8-15: These lines are a single pattern action pair. The format is:
+     8	<PAT>{for(LOOPHEADER)
+     9		 if(CONDITION)
+    10		    ACTION1
+    11		 else
+    12		 {  ACTION2
+    13		    ACTION3
+    14		 }
+    15	      }
+Now, what are the details? Well, there are 6 capitalized parts above:
+
+PAT: This pattern should match to everything EXCEPT the first input line.
+LOOPHEADER: This loops through every field of the input line.
+CONDITION: This checks to see if this is the second time the symbol has been
+           encountered. In other words, it looks for the field in the array.
+	   Q: What array?
+	   A: The array that gets created by ACTION2, below (it isn't the array
+	      that was created back on lines 2-7).
+ACTION1: This makes the replacement (see slide #138 of the last lecture).
+ACTION2: This creates the element for this field in the array (because we know
+         that it is the first time to see this symbol).
+	 The complicated part is creating the value for the array element (I
+	 mean, for example, the value "a1" that goes into the heart element).
+ACTION3: This line adds a space onto the field. If, for example, the we were
+         processing the second field of the third line (i.e., "❤"), then this
+	 action will change it into "❤ ".
+         Q: Why do we want to do this?
+	 A: Because the replacements are 2-characters wide, but the original
+	    symbols are just 1-character wide -- so they need to be padded to
+	    keep the rows lined up.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Line 16: This line is a single pattern action pair. Actually, it is just a
+         pattern, because the action is the default action. As for the pattern,
+	 it matches to all lines.
